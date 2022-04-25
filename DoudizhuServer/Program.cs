@@ -50,11 +50,11 @@ namespace DoudizhuServer
 			server.Start();
 
 
-			//ErrorDAO.InsertErrorMessage(new GameServer.Model.Error("new_test", "Program.cs/Main"));
+			ErrorDAO.InsertErrorMessage(new GameServer.Model.Error("new_test", "Program.cs/Main"));
 
 			//MySqlConnection con = ConnectHelper.Connect();
 			//Console.WriteLine(new UserDAO().GetUserCount(con));
-			
+
 			//ConnectHelper.CloseSql(con);
 
 
