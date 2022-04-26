@@ -119,6 +119,8 @@ namespace GameServer.Controller
 						send0.id = client.Id;
 
 						Console.WriteLine(player.name + " 加入成功");
+						
+
 						return send0;
 					} else {
 						// 数据库中没有房间，但存在key值

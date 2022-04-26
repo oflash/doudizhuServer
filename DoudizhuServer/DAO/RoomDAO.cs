@@ -172,6 +172,12 @@ namespace GameServer.DAO
 			}
 		}
 
+		public void UpdateRoomStatus(MySqlConnection con, Room room) {
+			
+
+		}
+
+
 		/// <summary>
 		/// 玩家退出房间，最后一个玩家退出则删除房间
 		/// </summary>
