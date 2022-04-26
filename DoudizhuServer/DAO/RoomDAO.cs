@@ -121,7 +121,7 @@ namespace GameServer.DAO
 					return false;
 				}
 
-				MySqlCommand cmd = new MySqlCommand(string.Format("insert into room(room_num, status, scene_id, create_time) values({0}, {1}, {2}, '{3}');", room.Room_num, room.Status, room.Scene_id, room.Create_time), con);
+				MySqlCommand cmd = new MySqlCommand(string.Format("insert into room(room_num, status, scene_id, create_time) values({0}, {1}, {2}, '{3}');", room.Room_num, room.Status, room.Scene_id, room.Create_time.ToString("yyyy-MM-dd HH-mm-ss")), con);
 				cmd.ExecuteNonQuery();
 
 				Console.WriteLine("创建成功");
