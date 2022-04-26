@@ -56,7 +56,7 @@ namespace GameServer.Controller
 				return send;
 			} catch (Exception e) {
 				Console.WriteLine(e.Message);
-				ErrorDAO.InsertErrorMessage(new Error(e.Message,"RoomController.cs/CreateRoom", client.Id));
+				ErrorDAO.InsertErrorMessage(new Error(e.Message, "RoomController.cs/CreateRoom", client.Id));
 				send = new Content(ReturnCode.Fail, ActionCode.CreateRoom, ContentType.Default, SendTo.Single, "房间错误，创建失败");
 				return send;
 			} finally {
@@ -75,7 +75,7 @@ namespace GameServer.Controller
 		public Content JoinRoom(object obj, Client client, Server server) {
 			PlayerInfo player = JsonConvert.DeserializeObject<PlayerInfo>(obj.ToString());
 
-			User user = new User(player.id, player.name, player.sex ? 1 : 0, 6000);
+			User user = new User(player.id, client.RemoteEndPoint.ToString(), player.name, player.sex ? 1 : 0, 6000);
 			userDAO.InsertUser(client.con, user);       // 用户信息插入数据库, 不管有没有加入成功房间，都插入数据
 
 			int room_sence = Convert.ToInt32(player.other);

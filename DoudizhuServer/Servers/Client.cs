@@ -10,6 +10,7 @@ using GameServer.Tools;
 using GameServer.DAO;
 using GameServer.Model;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace GameServer.Servers
 {
@@ -34,6 +35,7 @@ namespace GameServer.Servers
 		public string Id => id;
 
 		public bool Connected => cliSocket.Connected;
+		public EndPoint RemoteEndPoint => cliSocket.RemoteEndPoint;
 
 		public int Room_num { get => room_num; set => room_num = value; }
 		private int room_num = 0;       // 房间号
@@ -64,7 +66,7 @@ namespace GameServer.Servers
 			int cnt = userDAO.GetUserCount(con);
 			Console.WriteLine("历史人数：" + cnt);
 			id = "client" + (cnt + 1);
-			userDAO.InsertUser(con, new User(id));
+			userDAO.InsertUser(con, new User(id, cliSocket.RemoteEndPoint.ToString()));
 
 			allClient[id] = this;
 			Console.WriteLine(allClient.Count);

@@ -22,7 +22,7 @@ namespace GameServer.DAO
 			//Console.WriteLine("插入数据：\nid:" + id + ", username:" + username + ", sex:" + sex + ", room_index:" + room_index);
 			try {
 				Console.WriteLine("正在插入玩家信息数据...");     // 暂时只插入最基本的数据, 房间号暂时默认为0
-				MySqlCommand cmd = new MySqlCommand(string.Format("replace into user(id,username,sex,coin) values('{0}','{1}',{2},{3});", user.Id, user.Username, user.Sex, user.Coin), con);
+				MySqlCommand cmd = new MySqlCommand(string.Format("replace into user(id,username,sex,coin,ip,link_time) values('{0}','{1}',{2},{3},'{4}','{5}');", user.Id, user.Username, user.Sex, user.Coin, user.Ip, user.Link_time.ToString("yyyy-MM-dd HH-mm-ss")), con);
 				cmd.ExecuteNonQuery();
 				return true;
 			} catch (Exception e) {
@@ -99,7 +99,6 @@ namespace GameServer.DAO
 
 			}
 		}
-
 
 	}
 }

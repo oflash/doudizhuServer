@@ -189,7 +189,7 @@ namespace GameServer.Controller
 			// 如果需要处理info
 			UserDAO userDAO = new UserDAO();
 			//userDAO.UpdateUserCoin(client.con, client.Id, info.Douzi);
-			info.Douzi = userDAO.UpdateUserCoin(client.con, new User(client.Id, "", 0, info.Douzi));
+			info.Douzi = userDAO.UpdateUserCoin(client.con, new User(client.Id, client.RemoteEndPoint.ToString(), "", 0, info.Douzi));
 
 			Content send = new Content(ReturnCode.Success, ActionCode.Result,
 				ContentType.ResultInfo, SendTo.InRoom, JsonConvert.SerializeObject(info));
