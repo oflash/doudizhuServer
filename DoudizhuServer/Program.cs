@@ -53,7 +53,9 @@ namespace DoudizhuServer
 
 
 			//ErrorDAO.InsertErrorMessage(new GameServer.Model.Error("new_test", "Program.cs/Main"));
-
+			
+			
+			// ipad test1111111
 
 			//MySqlConnection con = ConnectHelper.Connect();
 			//Console.WriteLine(new UserDAO().GetUserCount(con));
