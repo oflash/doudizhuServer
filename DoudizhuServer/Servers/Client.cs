@@ -124,12 +124,13 @@ namespace GameServer.Servers
 		public void Close() {
 			if (cliSocket == null) return;
 			try {
+				// 发送给房间内其他人的消息
 				string s = this.Id + ":退出了连接";
 				PromptInfo promptInfo = new PromptInfo(s, SendTo.InRoom);
 				Content content = new Content(ContentType.Prompt, ActionCode.Prompt, RequestCode.Default, JsonConvert.SerializeObject(promptInfo));
 				server.HandleRequest(content, this);
 
-				Console.WriteLine("断开");
+				Console.WriteLine(this.Id + "断开");
 				RoomDAO roomDAO = new RoomDAO();
 				if (room_num != 0) roomDAO.DeleteRoom(con, new User(Id), new Room(Room_num));
 

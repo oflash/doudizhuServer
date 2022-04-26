@@ -57,6 +57,8 @@ namespace DoudizhuServer
 
 			//MySqlConnection con = ConnectHelper.Connect();
 			//Console.WriteLine(new UserDAO().GetUserCount(con));
+			//int a = new RoomDAO().GetRoomID(con, 5484);
+			//Console.WriteLine(a);
 
 			//ConnectHelper.CloseSql(con);
 

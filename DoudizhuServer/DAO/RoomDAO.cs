@@ -24,9 +24,10 @@ namespace GameServer.DAO
 			lock (con) {
 				MySqlDataReader reader = null;
 				try {
-					MySqlCommand cmd = new MySqlCommand(string.Format("select room_num from room where room_num = {0};", room_num), con);
+					// 忽略历史创建的房间号
+					MySqlCommand cmd = new MySqlCommand(string.Format("select room_num from room where room_num = {0} and status <> -1;", room_num), con);
 					reader = cmd.ExecuteReader();
-					// 存在该房间号
+
 					if (reader.Read()) {
 						return true;
 					} else {
@@ -43,15 +44,48 @@ namespace GameServer.DAO
 		}
 
 		/// <summary>
+		/// 根据房间号获取当前房间的ID号(只获取房间状态是0 or 1的房间，因为一个房间号只允许存在一个改状态)
+		/// </summary>
+		/// <param name="con"></param>
+		/// <param name="room_num"></param>
+		/// <returns></returns>
+		private int GetRoomID(MySqlConnection con, int room_num) {
+			lock (con) {
+				MySqlDataReader reader = null;
+				try {
+					MySqlCommand cmd = new MySqlCommand(string.Format("select room_id from room where room_num = {0} and status <> -1;", room_num), con);
+					reader = cmd.ExecuteReader();
+					if (reader.Read()) {
+						int cnt = reader.GetInt32("room_id");
+#if WINDOWS
+						Console.WriteLine("获取房间id号成功");
+#endif
+						return cnt;
+					} else {
+						return 0;        // 
+					}
+				} catch (Exception e) {
+					Console.WriteLine(e.Message);
+					ErrorDAO.InsertErrorMessage(new Error(e.Message, "RoomDAO.cs/GetRoomID"));
+					return 0;
+				} finally {
+					if (reader != null)
+						reader.Close();
+				}
+			}
+		}
+
+		/// <summary>
 		/// 获取房间人数
 		/// </summary>
 		/// <param name="con"></param>
 		/// <param name="room_num"></param>
-		private int GetRoomCount(MySqlConnection con, int room_num) {
+		private int GetRoomCount(MySqlConnection con, int room_id) {
 			lock (con) {
 				MySqlDataReader reader = null;
 				try {
-					MySqlCommand cmd = new MySqlCommand(string.Format("select count(*) from user where room_num = {0};", room_num), con);
+
+					MySqlCommand cmd = new MySqlCommand(string.Format("select count(*) from user where room_id = {0} and room_index <> -1;", room_id), con);
 					reader = cmd.ExecuteReader();
 					if (reader.Read()) {
 						int cnt = reader.GetInt32("count(*)");
@@ -87,14 +121,14 @@ namespace GameServer.DAO
 					return false;
 				}
 
-				MySqlCommand cmd = new MySqlCommand(string.Format("insert into room(room_num, status, scene_id) values({0},{1},{2});", room.Room_num, room.Status, room.Scene_id), con);
+				MySqlCommand cmd = new MySqlCommand(string.Format("insert into room(room_num, status, scene_id, create_time) values({0}, {1}, {2}, '{3}');", room.Room_num, room.Status, room.Scene_id, room.Create_time), con);
 				cmd.ExecuteNonQuery();
 
 				Console.WriteLine("创建成功");
 				return true;
 			} catch (Exception e) {
 				Console.WriteLine("创建失败");
-				ErrorDAO.InsertErrorMessage(new Error(e.Message,"RoomDAO.cs/CreateRoom"));
+				ErrorDAO.InsertErrorMessage(new Error(e.Message, "RoomDAO.cs/CreateRoom"));
 				Console.WriteLine(e.Message);
 				return false;
 			}
@@ -104,22 +138,27 @@ namespace GameServer.DAO
 		/// 玩家加入房间
 		/// </summary>
 		/// <param name="con"></param>
-		/// <param name="user">需要Id</param>
+		/// <param name="user">需要Id，room_index</param>
 		/// <param name="room_num">需要房间号</param>
 		public int JoinRoom(MySqlConnection con, User user, Room room) {
 
 			try {
+
 				if (!JudgeRoomExits(con, room.Room_num)) {
 					Console.WriteLine("该房间号不存在!!!");
 					return -1;
-				} else if (GetRoomCount(con, room.Room_num) >= 3) {
+				}
+
+				room.Room_id = GetRoomID(con, room.Room_num);                   // 如果房间存在，获取房间ID号
+
+				if (GetRoomCount(con, room.Room_id) >= 3) {
 					Console.WriteLine("房间已满!!");
 					return -2;
 				}
 
-				string mysql = string.Format("update user set room_num = {0} where id = '{1}';", room.Room_num, user.Id);
+				string mysql = string.Format("update user set room_id = {0}, room_index = {1} where id = '{2}';", room.Room_id, user.Room_index, user.Id);
 				Console.WriteLine(mysql);
-				// 修改外键房间号
+				// 修改外键房间ID
 				MySqlCommand cmd = new MySqlCommand(mysql, con);
 
 				cmd.ExecuteNonQuery();
@@ -144,19 +183,20 @@ namespace GameServer.DAO
 				//int room_count = 0;
 				if (user != null) {
 
-					MySqlCommand cmd = new MySqlCommand(string.Format("update user set room_num = 0 where id = '{0}';", user.Id), con);
+					MySqlCommand cmd = new MySqlCommand(string.Format("update user set room_index = -1 where id = '{0}';", user.Id), con);
 					cmd.ExecuteNonQuery();      // 修改用户表房间号为0
 					Console.WriteLine(user.Username + "退出了房间");
 				} else {
 					// 表示删除无用的房间号
-					MySqlCommand cmd = new MySqlCommand(string.Format("update user set room_num = 0 where room_num = {0};", room.Room_num), con);
-					cmd.ExecuteNonQuery();      // 修改用户表房间号为0
+					MySqlCommand cmd = new MySqlCommand(string.Format("update room set status = -1 where room_num = {0};", room.Room_num), con);
+					cmd.ExecuteNonQuery();
+					return;
 				}
 
 				int room_count = GetRoomCount(con, room.Room_num);       // 获取房间剩余人数
 
 				if (room_count == 0) {
-					MySqlCommand cmd1 = new MySqlCommand(string.Format("delete from room where room_num = {0};", room.Room_num), con);
+					MySqlCommand cmd1 = new MySqlCommand(string.Format("update room set status = -1 where room_num = {0};", room.Room_num), con);
 					cmd1.ExecuteNonQuery();     // 删除该房间号
 					Console.WriteLine("删除成功");
 				}

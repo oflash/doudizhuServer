@@ -85,25 +85,25 @@ namespace GameServer.Controller
 			RoomInfo ri = null;
 			rooms.TryGetValue(room_num, out ri);
 
-
-			// 尝试修改数据库
-			//int res = roomDAO.JoinRoom(client.con, player.id, room_num);
-			int res = roomDAO.JoinRoom(client.con, new User(player.id), new Room(room_num));
 			string fail = "";
-			if (res == -1) {
-				fail = "房间号不存在";
-			} else if (res == -2) {
-				fail = "房间人数已满";
-			} else if (res == -3) {
-				fail = "系统错误";
-			} else {
-				client.Room_num = room_num;     // 数据库中有房间
-			}
-
-			// 加入成功，且存在key值
-			if (ri != null) {
+			if (ri != null) {									// 1.存在key值，才说明CreateRoom方法至少没有问题-------
 				lock (ri) {
-					if (string.IsNullOrEmpty(fail)) {
+
+					User u = new User(player.id);
+					u.Room_index = ri.players.Count;	// 加入房间需要加入房间的内部编号
+
+					int res = roomDAO.JoinRoom(client.con, u, new Room(room_num));
+					if (res == -1) {
+						fail = "房间号不存在";
+					} else if (res == -2) {
+						fail = "房间人数已满";
+					} else if (res == -3) {
+						fail = "系统错误";
+					} else {
+						client.Room_num = room_num;     // 数据库中有房间
+					}
+
+					if (string.IsNullOrEmpty(fail)) {			// 2.且数据库加入房间正常-----------------------------
 
 						if (Convert.ToInt32(player.other) != -1) {  // 创建房间
 							ri.roomScene = room_sence;
@@ -125,8 +125,8 @@ namespace GameServer.Controller
 						rooms.Remove(room_num);
 					}
 				}
-			} else if (string.IsNullOrEmpty(fail)) {
-				// 数据库中有房间，但不存在key值 -> 删除数据库中的房间
+			} else {
+				// 不存在key值 -> 删除数据库中的房间（如果有）
 				roomDAO.DeleteRoom(client.con, null, new Room(room_num));
 			}
 			// 错误 or 加入失败
