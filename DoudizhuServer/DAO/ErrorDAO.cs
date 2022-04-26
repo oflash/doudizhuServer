@@ -26,6 +26,12 @@ namespace GameServer.DAO
 				Console.WriteLine("捕捉到异常");
 				MySqlConnection con = ConnectHelper.Connect();              // 开启新的数据库连接
 
+				// 如果该用户id不存在
+				if (!new UserDAO().JudgeUserExit(con, new User(error.User_id))) {
+					Console.WriteLine("user_id不存在，使用默认id");
+					error.User_id = "default_id";		// 使用默认id
+				}
+
 				Console.WriteLine(error.Error_time + "  ->  " + error.Error_func);
 				string sql = string.Format("insert into error(error_message, error_time, user_id, error_func) " +
 					"values('{0}', '{1}', '{2}', '{3}');",
