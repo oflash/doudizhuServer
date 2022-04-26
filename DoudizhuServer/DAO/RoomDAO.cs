@@ -193,7 +193,8 @@ namespace GameServer.DAO
 					return;
 				}
 
-				int room_count = GetRoomCount(con, room.Room_num);       // 获取房间剩余人数
+				room.Room_id = GetRoomID(con, room.Room_num);
+				int room_count = GetRoomCount(con, room.Room_id);       // 获取房间剩余人数
 
 				if (room_count == 0) {
 					MySqlCommand cmd1 = new MySqlCommand(string.Format("update room set status = -1 where room_num = {0};", room.Room_num), con);
