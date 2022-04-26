@@ -50,6 +50,8 @@ namespace DoudizhuServer
 			server.Start();
 
 
+
+
 			//ErrorDAO.InsertErrorMessage(new GameServer.Model.Error("new_test", "Program.cs/Main"));
 
 
