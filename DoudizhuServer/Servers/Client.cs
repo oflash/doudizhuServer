@@ -84,6 +84,7 @@ namespace GameServer.Servers
 		/// </summary>
 		/// <param name="ar"></param>
 		public void ReceiveCallBack(IAsyncResult ar) {
+			if (cliSocket == null) return;
 
 			try {
 				if (cliSocket.Poll(10, SelectMode.SelectRead)) {
