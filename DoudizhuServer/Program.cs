@@ -27,7 +27,7 @@ namespace DoudizhuServer
 			string ip = args[0];
 			int port = int.Parse(args[1]);
 #elif LINUX
-			string ip = "172.16.38.160";
+			string ip = "10.0.8.10";
 			int port = 9876;
 #endif
 			Console.WriteLine("请勿关闭此窗口!!!");
