@@ -32,20 +32,20 @@ namespace GameServer.Controller
 		/// <param name="server"></param>
 		/// <returns></returns>
 		public Content RobDiZhu(object obj, Client client, Server server) {
-			Queue<string> queueRDZ = roomController.rooms[client.Room_num].queueRDZ;
 			//int cnt_NoRob = ref roomController.rooms[client.Room_num].cnt_NoRob;
-			ref int cnt_NoRob = ref roomController.rooms[client.Room_num].cnt_NoRob;
-			ref string one_id = ref roomController.rooms[client.Room_num].one_id;
-			ref string one_call = ref roomController.rooms[client.Room_num].one_call;
+			Queue<string> queueRDZ = roomController.rooms[client.Room_num].queueRDZ;
+			ref var cnt_NoRob = ref roomController.rooms[client.Room_num].cnt_NoRob;
+			ref var one_id = ref roomController.rooms[client.Room_num].one_id;
+			ref var one_call = ref roomController.rooms[client.Room_num].one_call;
 
-			bool call = queueRDZ.Count == 0;        // 如果没有人叫过
+			bool call = queueRDZ.Count == 0;        // 在此之前, 还没有人叫地主
 			if (Convert.ToBoolean(obj)) {
 				if (queueRDZ.Count == 0) one_call = client.Id;
 				queueRDZ.Enqueue(client.Id);        // 直接入队
 			} else {
 				cnt_NoRob++;                        // 不抢
 			}
-			if (one_id == "one_id") one_id = client.Id;
+			if (one_id == "one_id") one_id = client.Id;         // 第一个选择者
 			ReturnCode returnCode = ReturnCode.Fail;
 
 			if (cnt_NoRob == 3 ||                               // 3人都不抢地主, 随机选择一个地主
@@ -55,10 +55,9 @@ namespace GameServer.Controller
 				returnCode = ReturnCode.Success;
 			}
 
-			Console.WriteLine("0 " + client.Id);
+			//Console.WriteLine("0 " + client.Id);
 			string next = roomController.GetNextPlayer(client.Id, client);  // 下一人, 默认Id
-			Console.WriteLine("1 " + next);
-
+																			//Console.WriteLine("1 " + next);
 
 			if (returnCode == ReturnCode.Fail) {            // 没有确定出地主, 找出下一个发言人
 				int total = cnt_NoRob + queueRDZ.Count;                 // 进行到第几轮了
@@ -69,9 +68,9 @@ namespace GameServer.Controller
 			} else if (returnCode == ReturnCode.Success) {  // 确定出地主
 				if (queueRDZ.Count != 0) {
 					next = queueRDZ.Last();
-				} else {        // 3人都不叫地主
+				} else {        // 3人都不叫地主, 随机一人为地主
 					Random rand = new Random();
-					next = roomController.rooms[client.Room_num].players[rand.Next(3)].id;     // 随机一人为地主
+					next = roomController.rooms[client.Room_num].players[rand.Next(3)].id;
 				}
 				cnt_NoRob = 0;
 				queueRDZ.Clear();

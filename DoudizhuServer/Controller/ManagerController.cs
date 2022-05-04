@@ -31,7 +31,6 @@ namespace GameServer.Controller
 			dicController.Add(RequestCode.Player, new PlayerController(this));          // Chat, Attack, Header
 			dicController.Add(RequestCode.PlayGame, new PlayGameController(this));      // ReadyGame
 			dicController.Add(RequestCode.Card, new CardController(this));
-
 		}
 
 

@@ -44,8 +44,9 @@ namespace GameServer.Controller
 		/// </summary>
 		/// <returns></returns>
 		public Content Divide(object obj, Client client, Server server) {
-			ref int shuffle = ref roomController.rooms[client.Room_num].shuffle;
-			ref List<int> cardIds = ref roomController.rooms[client.Room_num].cardIds;
+			ref var shuffle = ref roomController.rooms[client.Room_num].shuffle;
+			ref var cardIds = ref roomController.rooms[client.Room_num].cardIds;
+			ref var players = ref roomController.rooms[client.Room_num].players;
 
 			lock (cardIds) {
 				if (shuffle == 0) {
@@ -58,9 +59,6 @@ namespace GameServer.Controller
 				send.id = client.Id;
 
 				List<int> list = new List<int>();
-				// for (int i = shuffle * 17; i < (shuffle + 1) * 17; i++) {
-				// 	list.Add(cardIds[i]);
-				// }
 				for (int i = shuffle; i < 51; i += 3) {
 					list.Add(cardIds[i]);
 				}
@@ -71,7 +69,7 @@ namespace GameServer.Controller
 
 				Console.WriteLine(client.Id + "收到卡牌");
 
-				shuffle = (shuffle + 1) % roomController.rooms[client.Room_num].players.Count;
+				shuffle = (shuffle + 1) % players.Count;
 				return send;
 			}
 		}

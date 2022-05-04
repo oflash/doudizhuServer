@@ -86,11 +86,11 @@ namespace GameServer.Controller
 			rooms.TryGetValue(room_num, out ri);
 
 			string fail = "";
-			if (ri != null) {									// 1.存在key值，才说明CreateRoom方法至少没有问题-------
+			if (ri != null) {                                   // 1.存在key值，才说明CreateRoom方法至少没有问题-------
 				lock (ri) {
 
 					User u = new User(player.id);
-					u.Room_index = ri.players.Count;	// 加入房间需要加入房间的内部编号
+					u.Room_index = ri.players.Count;    // 加入房间需要加入房间的内部编号
 
 					int res = roomDAO.JoinRoom(client.con, u, new Room(room_num));
 					if (res == -1) {
@@ -103,7 +103,7 @@ namespace GameServer.Controller
 						client.Room_num = room_num;     // 数据库中有房间
 					}
 
-					if (string.IsNullOrEmpty(fail)) {			// 2.且数据库加入房间正常-----------------------------
+					if (string.IsNullOrEmpty(fail)) {           // 2.且数据库加入房间正常-----------------------------
 
 						if (Convert.ToInt32(player.other) != -1) {  // 创建房间
 							ri.roomScene = room_sence;
@@ -115,11 +115,11 @@ namespace GameServer.Controller
 						ri.players.Add(player);
 
 						Content send0 = new Content(ReturnCode.Success, ActionCode.JoinRoom,
-							ContentType.PlayerInfo, SendTo.InRoom, JsonConvert.SerializeObject(ri.players));       // 注意, 这里传递的是链表
+							ContentType.PlayerInfo, SendTo.InRoom, JsonConvert.SerializeObject(ri.players)); // 注意, 这里传递的是链表
 						send0.id = client.Id;
 
 						Console.WriteLine(player.name + " 加入成功");
-						
+
 
 						return send0;
 					} else {
