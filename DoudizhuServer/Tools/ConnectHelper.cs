@@ -14,9 +14,9 @@ namespace GameServer.Tools
 	class ConnectHelper
 	{
 #if WINDOWS
-		static readonly string sql = "database = my_doudizhu; port = 3306; data source = 43.138.162.204; user id = liuzhiyi; password = 622411";
+		static readonly string sql = "database = my_doudizhu; port = 3306; data source = liuzhiyi.me; user id = liuzhiyi; password = 622411";
 #elif LINUX
-		static readonly string sql = "database = my_doudizhu; port = 3306; data source = 127.0.0.1; user id = liuzhiyi; password = 622411";
+		static readonly string sql = "database = my_doudizhu; port = 3306; data source = localhost; user id = liuzhiyi; password = 622411";
 #endif
 		public ConnectHelper() { }
 
