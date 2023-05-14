@@ -65,6 +65,7 @@ namespace GameServer.Servers
 			UserDAO userDAO = new UserDAO();
 			int cnt = userDAO.GetUserCount(con);
 			Console.WriteLine("历史人数：" + cnt);
+			if (cnt == -1 || con == null) return;
 			id = "client" + (cnt + 1);
 			userDAO.InsertUser(con, new User(id, cliSocket.RemoteEndPoint.ToString()));
 
