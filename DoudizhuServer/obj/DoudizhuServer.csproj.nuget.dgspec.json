@@ -1,38 +1,37 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Visual Studio 2019\\C#\\DoudizhuServer\\DoudizhuServer\\DoudizhuServer.csproj": {}
+    "E:\\Visual Studio 2019\\C#\\doudizhuServer\\DoudizhuServer\\DoudizhuServer.csproj": {}
   },
   "projects": {
-    "E:\\Visual Studio 2019\\C#\\DoudizhuServer\\Common\\Common.csproj": {
+    "E:\\Visual Studio 2019\\C#\\doudizhuServer\\Common\\Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Visual Studio 2019\\C#\\DoudizhuServer\\Common\\Common.csproj",
+        "projectUniqueName": "E:\\Visual Studio 2019\\C#\\doudizhuServer\\Common\\Common.csproj",
         "projectName": "Common",
-        "projectPath": "E:\\Visual Studio 2019\\C#\\DoudizhuServer\\Common\\Common.csproj",
-        "packagesPath": "C:\\Users\\Frenkie\\.nuget\\packages\\",
-        "outputPath": "E:\\Visual Studio 2019\\C#\\DoudizhuServer\\Common\\obj\\",
+        "projectPath": "E:\\Visual Studio 2019\\C#\\doudizhuServer\\Common\\Common.csproj",
+        "packagesPath": "C:\\Users\\17376\\.nuget\\packages\\",
+        "outputPath": "E:\\Visual Studio 2019\\C#\\doudizhuServer\\Common\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Frenkie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\17376\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -43,8 +42,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "MySql.Data": {
               "target": "Package",
@@ -61,7 +60,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -70,42 +70,41 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Visual Studio 2019\\C#\\DoudizhuServer\\DoudizhuServer\\DoudizhuServer.csproj": {
+    "E:\\Visual Studio 2019\\C#\\doudizhuServer\\DoudizhuServer\\DoudizhuServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Visual Studio 2019\\C#\\DoudizhuServer\\DoudizhuServer\\DoudizhuServer.csproj",
+        "projectUniqueName": "E:\\Visual Studio 2019\\C#\\doudizhuServer\\DoudizhuServer\\DoudizhuServer.csproj",
         "projectName": "DoudizhuServer",
-        "projectPath": "E:\\Visual Studio 2019\\C#\\DoudizhuServer\\DoudizhuServer\\DoudizhuServer.csproj",
-        "packagesPath": "C:\\Users\\Frenkie\\.nuget\\packages\\",
-        "outputPath": "E:\\Visual Studio 2019\\C#\\DoudizhuServer\\DoudizhuServer\\obj\\",
+        "projectPath": "E:\\Visual Studio 2019\\C#\\doudizhuServer\\DoudizhuServer\\DoudizhuServer.csproj",
+        "packagesPath": "C:\\Users\\17376\\.nuget\\packages\\",
+        "outputPath": "E:\\Visual Studio 2019\\C#\\doudizhuServer\\DoudizhuServer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Frenkie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\17376\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\Visual Studio 2019\\C#\\DoudizhuServer\\Common\\Common.csproj": {
-                "projectPath": "E:\\Visual Studio 2019\\C#\\DoudizhuServer\\Common\\Common.csproj"
+              "E:\\Visual Studio 2019\\C#\\doudizhuServer\\Common\\Common.csproj": {
+                "projectPath": "E:\\Visual Studio 2019\\C#\\doudizhuServer\\Common\\Common.csproj"
               }
             }
           }
@@ -117,8 +116,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "MySql.Data": {
               "target": "Package",
@@ -135,22 +134,17 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[5.0.16, 5.0.16]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }
