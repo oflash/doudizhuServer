@@ -80,10 +80,10 @@ namespace GameServer.Servers
 			}
 
 
-			allClient[id] = this;
+			allClient[user.Id] = this;
 			Console.WriteLine(allClient.Count);
 
-			Content init_attr = new Content(ReturnCode.Success, ActionCode.Initialization, ContentType.Default, SendTo.Single, Id);
+			Content init_attr = new Content(ReturnCode.Success, ActionCode.Initialization, ContentType.Default, SendTo.Single, user.Id);
 			server.SendResponse(init_attr, this);
 			Console.WriteLine(init_attr.actionCode);
 			recv = new Message(1024);
