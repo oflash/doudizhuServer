@@ -69,14 +69,14 @@ namespace GameServer.Servers
 			id = "client" + (cnt + 1);
 
 			User user = new User(id, cliSocket.RemoteEndPoint.ToString());
-			for (int i = 0; i < 10; i++)
+			for (int i = 1; i <= 10; i++)
 			{
 				if (!userDAO.JudgeUserExit(con, user))
 				{
 					userDAO.InsertUser(con, user);
 					break;
 				}
-				user.Id = "client" + (++cnt + 1);
+				user.Id = "client" + (cnt + i + 1);
 			}
 
 
